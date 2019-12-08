@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body, html{
+            margin: 0;
+            padding: 0;
+            max-height: 100vh;
+        }
+    </style>
+
+    <script>
+        const sleep = (time) => new Promise(res => setTimeout(() => { res() }, time))
+        window.onload = function() { 
+
+                
+            async function dropLetter(posX, posY, letter, sleepTime){
+
+                var canvas = document.createElement('canvas'), 
+                c = canvas.getContext("2d")
+
+                canvas.width = 20
+                canvas.height = window.innerHeight
+
+                document.body.appendChild(canvas)
+                c.font = "30px Roboto"
+
+                var posX = posX,
+                    posY = posY,
+                    vx = 0,
+                    vy = 2,
+                    gravity = .8
+
+                await sleep(sleepTime)
+                var interval = setInterval(() =>{
+                    c.fillStyle = 'black'
+                    c.fillRect(0,0, canvas.width,canvas.height)
+
+                    posX += vx;
+                    posY += vy;
+                    
+                    if (posY > 300) {
+                        posY = 300;
+                        vy *= - 0.5;
+                        vx *= - 0.5
+                    }
+                    vy += gravity
+
+                    c.fillStyle = 'white'
+                    c.fillText(letter, posX, posY);
+
+                    setTimeout(() => clearInterval(interval), 2500)
+                }, 30)
+            }
+                
+            dropLetter(0,0, "A",1000)
+            dropLetter(0,0, "V",1300 * 1.25)
+            dropLetter(0,0, "A",1300 * 1.5)
+            dropLetter(0,0, "N",1300 * 1.75)
+            dropLetter(0,0, "A",1300 * 2)
+            dropLetter(0,0, "D",1300 * 2.25)
+            dropLetter(0,0, "E",1300 * 2.55)
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

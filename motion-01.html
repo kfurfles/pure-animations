@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body, html{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script>
+        window.onload = function() {
+            var canvas = document.createElement('canvas'), 
+                c = canvas.getContext("2d")
+
+            canvas.width = 600
+            canvas.height = 600
+
+            document.body.appendChild(canvas)
+
+            var posX = 0,
+                posY = 200,
+                vx = 5,
+                vy = -10,
+                gravity = .8
+
+            setInterval(() =>{
+                c.fillStyle = 'black'
+                c.fillRect(0,0, canvas.width,canvas.height)
+                posX += vx;
+                posY += vy;
+                
+                if (posY > 300) {
+                    posY = 300;
+                    vy *= - 0.5
+                    vx *= - 0.5
+                }
+                vy += gravity
+
+                c.fillStyle = 'red';
+                c.fillRect(posX, posY, 10, 10)
+            }, 30)
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
