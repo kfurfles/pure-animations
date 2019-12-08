@@ -15,14 +15,33 @@
             justify-content: center;
             background: #000;
         }
+
+        .control{
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background: #000;
+            font-size: 18px;
+        }
+
+        .control input{
+            padding: 6px 12px;
+            font-size: inherit;
+        }
+        .control button{
+            padding: 6px 12px;
+            font-size: inherit;
+        }
     </style>
 
     <script>
         const sleep = (time) => new Promise(res => setTimeout(() => { res() }, time))
-        window.onload = function() { 
 
                 
-            async function dropLetter(posX, posY, letter, sleepTime){
+        async function dropLetter(posX, posY, letter, sleepTime){
 
                 var canvas = document.createElement('canvas'), 
                 c = canvas.getContext("2d")
@@ -60,17 +79,31 @@
                     setTimeout(() => clearInterval(interval), 2500)
                 }, 30)
             }
-                
-            dropLetter(0,0, "A",1000)
-            dropLetter(0,0, "V",1300 * 1.25)
-            dropLetter(0,0, "A",1300 * 1.5)
-            dropLetter(0,0, "N",1300 * 1.75)
-            dropLetter(0,0, "A",1300 * 2)
-            dropLetter(0,0, "D",1300 * 2.25)
-            dropLetter(0,0, "E",1300 * 2.55)
+        
+        
+
+        const letters = () => document.querySelector('#text').value.toString().split('')
+
+        function run(){
+            document.querySelectorAll('canvas').forEach(c => c.remove())
+
+            var time = 100;
+            var delay = 0.25
+
+            var letterParams = letters().reduce((acc,cur) =>{
+                time += 500
+                return [...acc,[0,0, cur, parseInt(time) ]]
+            }, []) 
+            
+            letterParams.map(params => dropLetter(...params))
         }
+        
     </script>
 </head>
 <body>
+    <div class="control">
+        <input type="text" id="text" maxlength="10" value="avanade">
+        <button onclick="run()">Try</button>
+    </div>
 </body>
 </html>
