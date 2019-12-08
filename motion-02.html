@@ -98,9 +98,13 @@
             letterParams.map(params => dropLetter(...params))
         }
 
-        window.onload = function() {
-            run()
-        }
+        window.addEventListener('onload', async function(){
+            try {
+                run()
+            } catch (error) {
+                alert(error)
+            }
+        })
         
     </script>
 </head>
