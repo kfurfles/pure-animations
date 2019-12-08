@@ -11,6 +11,9 @@
             margin: 0;
             padding: 0;
             max-height: 100vh;
+            display: flex;
+            justify-content: center;
+            background: #000;
         }
     </style>
 
@@ -24,15 +27,15 @@
                 var canvas = document.createElement('canvas'), 
                 c = canvas.getContext("2d")
 
-                canvas.width = 20
+                canvas.width = 80
                 canvas.height = window.innerHeight
 
                 document.body.appendChild(canvas)
-                c.font = "30px Roboto"
+                c.font = "80px Roboto"
 
                 var posX = posX,
                     posY = posY,
-                    vx = 0,
+                    vx = 1,
                     vy = 2,
                     gravity = .8
 
@@ -44,8 +47,8 @@
                     posX += vx;
                     posY += vy;
                     
-                    if (posY > 300) {
-                        posY = 300;
+                    if (posY > window.innerHeight / 2) {
+                        posY = window.innerHeight / 2;
                         vy *= - 0.5;
                         vx *= - 0.5
                     }
