@@ -97,12 +97,16 @@
             
             letterParams.map(params => dropLetter(...params))
         }
+
+        window.onload = function() {
+            run()
+        }
         
     </script>
 </head>
 <body>
     <div class="control">
-        <input type="text" id="text" maxlength="10" value="avanade">
+        <input type="text" id="text" maxlength="10" value="words">
         <button onclick="run()">Try</button>
     </div>
 </body>
