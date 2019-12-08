@@ -36,82 +36,79 @@
             font-size: inherit;
         }
     </style>
-
-    <script>
-        const sleep = (time) => new Promise(res => setTimeout(() => { res() }, time))
-
-                
-        async function dropLetter(posX, posY, letter, sleepTime){
-
-                var canvas = document.createElement('canvas'), 
-                c = canvas.getContext("2d")
-
-                canvas.width = 80
-                canvas.height = window.innerHeight
-
-                document.body.appendChild(canvas)
-                c.font = "80px Roboto"
-
-                var posX = posX,
-                    posY = posY,
-                    vx = 0,
-                    vy = 2,
-                    gravity = .8
-
-                await sleep(sleepTime)
-                var interval = setInterval(() =>{
-                    c.fillStyle = 'black'
-                    c.fillRect(0,0, canvas.width,canvas.height)
-
-                    posX += vx;
-                    posY += vy;
-                    
-                    if (posY > window.innerHeight / 2) {
-                        posY = window.innerHeight / 2;
-                        vy *= - 0.5;
-                        vx *= - 0.5
-                    }
-                    vy += gravity
-
-                    c.fillStyle = 'white'
-                    c.fillText(letter, posX, posY);
-
-                    setTimeout(() => clearInterval(interval), 2500)
-                }, 30)
-            }
-        
-        
-
-        const letters = () => document.querySelector('#text').value.toString().split('')
-
-        function run(){
-            document.querySelectorAll('canvas').forEach(c => c.remove())
-
-            var time = 100;
-            var delay = 0.25
-
-            var letterParams = letters().reduce((acc,cur) =>{
-                time += 500
-                return [...acc,[0,0, cur, parseInt(time) ]]
-            }, []) 
-            
-            letterParams.map(params => dropLetter(...params))
-        }
-
-        window.addEventListener('onload', async function(){
-            try {
-                run()
-            } catch (error) {
-                alert(error)
-            }
-        })
-        
-    </script>
 </head>
 <body>
-    <div class="control">
+    <form class="control">
         <input type="text" id="text" maxlength="10" value="words">
-        <button onclick="run()">Try</button>
-    </div>
+        <button type="button">Try</button>
+    </form>
+
+    <script>
+            const sleep = (time) => new Promise(res => setTimeout(() => { res() }, time))
+    
+                    
+            async function dropLetter(posX, posY, letter, sleepTime){
+    
+                    var canvas = document.createElement('canvas'), 
+                    c = canvas.getContext("2d")
+    
+                    canvas.width = 80
+                    canvas.height = window.innerHeight
+    
+                    document.body.appendChild(canvas)
+                    c.font = "80px arial"
+    
+                    var posX = posX,
+                        posY = posY,
+                        vx = 0,
+                        vy = 2,
+                        gravity = .8
+    
+                    await sleep(sleepTime)
+                    var interval = setInterval(() =>{
+                        c.fillStyle = '#000'
+                        c.fillRect(0,0, canvas.width,canvas.height)
+    
+                        posX += vx;
+                        posY += vy;
+                        
+                        if (posY > window.innerHeight / 2) {
+                            posY = window.innerHeight / 2;
+                            vy *= - 0.5;
+                            vx *= - 0.5
+                        }
+                        vy += gravity
+    
+                        c.fillStyle = '#fff'
+                        c.fillText(letter, posX, posY);
+    
+                        setTimeout(() => clearInterval(interval), 2500)
+                    }, 30)
+                }
+            
+            
+    
+            const letters = () => document.querySelector('#text').value.toString().split('')
+    
+            function run($event){
+                alert('run')
+                document.querySelectorAll('canvas').forEach(c => c.remove())
+
+                var time = 100;
+                var delay = 0.25
+
+                var letterParams = letters().reduce((acc,cur) =>{
+                    time += 500
+                    return [...acc,[0,0, cur, parseInt(time) ]]
+                }, []) 
+                
+                letterParams.map(params => dropLetter(...params))
+            }
+    
+            window.onload = (function(){
+                run()
+            })
+            
+        </script>
 </body>
 </html>
